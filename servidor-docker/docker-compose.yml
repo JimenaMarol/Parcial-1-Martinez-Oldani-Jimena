@@ -1,0 +1,31 @@
+services:    
+  postgresql:
+    container_name: postgresql-servidor
+    image: postgres:16-bullseye
+    ports:
+      - "5432:5432"
+    networks:
+      - mired
+    environment:
+      POSTGRES_PASSWORD: alejandro2004
+      POSTGRES_DB: prueba_1
+      POSTGRES_USER: postgress
+      #PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    restart: always                                
+  app:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - postgresql
+    environment:
+      - DATABASE_URL=postgresql://usuario:contraseña@postgresql:5432/prueba_1
+volumes:
+  pgdata:
+
+networks:
+  mired:
+    external: true

@@ -1,0 +1,10 @@
+
+# Ignore virtual environments
+.venv/
+venv/
+# Ignore Python bytecode and cache directories
+__pycache__/
+*.pyc
+.git
+.venv
+.env
